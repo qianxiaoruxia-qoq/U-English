@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <properties>
+        <property name="layout">%d{yyyy-MM-dd HH:mm:ss} [%t] [%-5p] - %m - [%c]%n</property>
+    </properties>
+    <appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <ThresholdFilter level="debug"/>
+            <PatternLayout pattern="${layout}" />
+        </Console>
+    </appenders>
+
+    <loggers>
+        <logger name="com.mapper" level="debug"></logger>
+        <root level="debug">
+            <!--  这儿为trace表示什么都可以打印出来了,其他几个级别分别为：TRACE、DEBUG、INFO、WARN、ERROR和FATAL -->
+            <appender-ref ref="Console" />
+        </root>
+    </loggers>
+</Configuration>
+

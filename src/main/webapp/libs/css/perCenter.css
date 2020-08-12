@@ -1,0 +1,115 @@
+/* mainContent */
+aside { width: 25%; float: left; }
+.perCenter-main { width: 74%; background: #fff; float: right }
+.perCenter-main article { border-bottom: #F4F3EF 40px solid; }
+#perCenter-main-body {
+    width: 90%;
+    margin: auto;
+}
+.avatar {
+    margin: 20px;
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
+    -moz-border-radius: 100px;
+    -webkit-border-radius: 100px;
+    overflow: hidden;
+    float: left;
+}
+#index-name>a {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    text-decoration: none;
+    margin-top: 20px;
+    margin-left: 10px;
+}
+#avatar-right {
+    float: left;
+    width: 650px;
+}
+#avatar-right>table {
+    margin-top: 70px;
+    border: 0px;
+    border-collapse: separate;
+    border-spacing: 10px;
+
+}
+#user-name {
+    float: left;
+}
+#nick {
+    overflow: hidden;
+}
+#nick-mid {
+    float: right;
+    color: #3399ea;
+}
+
+#details {
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.ul-li {
+    line-height: 30px;
+}
+.am-form-field {
+    position: relative;
+    z-index:10;
+}
+
+#avatar #avatar2 {
+    width: 120px;
+    height: 120px;
+}
+
+#avatarImg {
+    display: none;
+    visibility: hidden;
+}
+
+#preview {
+    width: 510px;
+    height: 378px;
+    margin-left: -329px;
+    margin-top: -147px;
+}
+#img-div {
+    width:120px;
+    height:120px;
+    overflow:hidden;
+}
+
+#changPassword,#post-article {
+    margin-top: 20px;
+}
+
+#changPassword span {
+    align-items: center;
+}
+
+.changePassw {
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+#article-title {
+    margin-top: 20px;
+}
+
+#article-btn {
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+#myRelease-list {
+    margin-top: 20px;
+}
+
+.article-other {
+    margin-left: 20px;
+    margin-top: 5px;
+    color: red;
+}

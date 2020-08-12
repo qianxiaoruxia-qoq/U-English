@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ue.dao.AllWordsMapper">
+    <resultMap id="allWords" type="com.ue.pojo.AllWords">
+        <id property="id" column="id"/>
+        <result property="wordEnglish" column="word_english"/>
+        <result property="wordChinese" column="word_chinese"/>
+        <result property="wordImg" column="word_img"/>
+    </resultMap>
+
+    <select id="findWordsByBookId" resultMap="allWords">
+        select a.* from allwords a inner join bookword b on b.word_id=a.id where b.book_id=#{bookId} limit #{start},10
+    </select>
+
+    <select id="findBookWordById" resultMap="allWords">
+        select a.* from allwords a inner join bookword b on a.id=b.word_id where b.book_id=#{bookId} group by id asc
+    </select>
+
+    <select id="selectNewWordByUserId" resultMap="allWords">
+        select a.* from allwords a inner join newword n on a.id=n.word_id where n.user_id=#{userId}
+    </select>
+</mapper>

@@ -1,0 +1,73 @@
+#web-container {
+    width: 1400px;
+    margin: 0 auto;
+}
+
+.left-main {
+    float: left;
+    width: 70%;
+    border: 1px solid rgba(51,150,251, 0.2);
+}
+
+.article-head {
+    height: 20px;
+}
+
+.article-head>span {
+    display: flex;
+    margin-top: 15px;
+    margin-left: 10px;
+    font-size: 20px;
+}
+
+.center-span {
+    width: 100%;
+    border: 1px solid rgba(51,150,251, 0.2);
+}
+
+.center-span>span {
+    display: flex;
+    margin-top: 15px;
+    margin-left: 10px;
+}
+
+.right-menu {
+    width: 30%;
+    float: right;
+    border: 1px solid rgba(51,150,251, 0.2);
+}
+
+.am-list > li {
+    background-color: #F5F8FA;
+    margin-top: 30px;
+    border-style: none none solid none ;
+}
+
+.article-title {
+    font-size: 16px;
+}
+
+.article-other {
+     color: #8D8D8D;
+    font-size: 12px;
+ }
+
+#user-name {
+    font-size: 20px;
+    color: #0f9ae0;
+    margin-bottom: 15px;
+}
+
+.am-badge-danger {
+    background-color: #F5F8FA;
+}
+
+.course-main {
+    float: left;
+    width: 100%;
+    border: 1px solid rgba(51,150,251, 0.2);
+}
+
+.introduce {
+    text-align: center;
+}

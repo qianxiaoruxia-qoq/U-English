@@ -1,0 +1,114 @@
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!-- 处理静态资源 -->
+    <mvc:annotation-driven/>
+    <mvc:default-servlet-handler/>
+
+    <context:property-placeholder location="classpath:db.properties"/>
+
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${db.driverClassName}"/>
+        <property name="url" value="${db.url}"/>
+        <property name="username" value="${db.username}"/>
+        <property name="password" value="${db.password}"/>
+    </bean>
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <property name="mapperLocations" value="classpath:mappers/*.xml"/>
+        <!-- 分页 注意其他配置 -->
+        <property name="plugins">
+            <array>
+                <bean class="com.github.pagehelper.PageInterceptor">
+                    <property name="properties">
+                        <!--使用下面的方式配置参数，一行配置一个 -->
+                        <value>
+
+                        </value>
+                    </property>
+                </bean>
+            </array>
+        </property>
+    </bean>
+
+    <!-- 工厂中的dao -->
+    <bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <property name="basePackage" value="com.ue.dao"/>
+    </bean>
+
+    <context:component-scan base-package="com.ue.service.impl"/>
+    <context:component-scan base-package="com.ue.controller"/>
+
+    <!--
+     视图解析器
+     帮我们完成跳转,转发的时候帮我们加上前后面的东西
+     -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>
+        <property name="prefix" value="/WEB-INF/jsp/"></property>
+        <property name="suffix" value=".jsp"></property>
+    </bean>
+
+    <!-- DataSourceTransactionManager 管理事务的类 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- springmvc文件上传解析器 -->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="UTF-8" />
+        <property name="maxUploadSize" value="-1" />
+    </bean>
+
+    <!--
+    advice是一个配置，核心是上面的transactionManager
+    主要作用是对事务管理器的一个更详细的配置
+    transaction-manager="transactionManager"可以不写，但是名字必须是默认的transactionManager
+    -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <!--
+            给方法做详细的配置
+            get*以get开头，后面是任意名字的
+             propagation="SUPPORTS" 如果其他bean调用这个方法,在其他bean中声明事务,那就用事务.
+            如果其他bean没有声明事务,那就不用事务. -->
+            <tx:method name="get*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="find*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="count*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="query*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="exist*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="select*" propagation="SUPPORTS" read-only="true"/>
+            <!--&lt;!&ndash; propagation="REQUIRED" 如果有事务, 那么加入事务, 没有的话新建一个(默认情况下) &ndash;&gt;-->
+            <tx:method name="save*" propagation="REQUIRED"/>
+            <tx:method name="insert*" propagation="REQUIRED"/>
+            <tx:method name="edit*" propagation="REQUIRED"/>
+            <tx:method name="update*" propagation="REQUIRED"/>
+            <tx:method name="delete*" propagation="REQUIRED"/>
+            <tx:method name="remove*" propagation="REQUIRED"/>
+            <tx:method name="*" propagation="SUPPORTS" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <aop:config>
+        <!--
+        * com.service.impl.*.*(..)
+        表示 ：任意返回值 com.service.impl包下的所有类，所有方法（任意参数）
+        -->
+        <aop:pointcut id="transactionPointcut" expression="execution(* com.ue.service.impl.*.*(..))"/>
+        <!-- 包含通知txAdvice和切入点transactionPointcut -->
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="transactionPointcut"/>
+    </aop:config>
+
+
+</beans>

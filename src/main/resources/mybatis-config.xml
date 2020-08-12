@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <!--告诉他使用log4j2-->
+        <setting name="logImpl" value="LOG4J2"/>
+    </settings>
+
+    <typeAliases>
+        <!-- 起个短名字 后面就可以直接用简称 -->
+        <typeAlias alias="User" type="com.ue.pojo.User"/>
+        <typeAlias alias="Menu" type="com.ue.pojo.Menu"/>
+    </typeAliases>
+</configuration>

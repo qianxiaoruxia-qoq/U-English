@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ue.dao.CommentMapper">
+    <update id="updateUserAvatar">
+        update comment set user_avatar=#{avatarPic} where user_id=#{userId}
+    </update>
+</mapper>

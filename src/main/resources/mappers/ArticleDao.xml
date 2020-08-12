@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ue.dao.ArticleMapper">
+    <select id="selectPageByUserIdAndSign" resultType="com.ue.pojo.Article">
+        select a.*
+        from article a left join symbol s on a.id=s.article_id
+        where s.user_id = #{userId} and s.sign = #{sign}  limit #{first},#{maxResult}
+    </select>
+
+    <select id="countByUserIdAndSign" resultType="int">
+        select count(*)
+        from article a left join symbol s on a.id=s.article_id
+        where s.user_id = #{userId} and s.sign = #{sign}
+    </select>
+</mapper>

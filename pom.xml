@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>U-english</groupId>
+  <artifactId>U-english</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>war</packaging>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <lombok.version>1.18.10</lombok.version>
+    <mysql.version>8.0.18</mysql.version>
+    <druid.version>1.1.21</druid.version>
+    <servlet.version>3.1.0</servlet.version>
+    <jstl.version>1.2</jstl.version>
+    <jetty.version>9.4.24.v20191120</jetty.version>
+    <fastjson.version>1.2.60</fastjson.version>
+    <spring.version>5.1.10.RELEASE</spring.version>
+    <aspectj.version>1.9.4</aspectj.version>
+    <log4j2.version>2.13.0</log4j2.version>
+    <jackson.verson>2.10.1</jackson.verson>
+    <mybatis.verson>3.5.3</mybatis.verson>
+    <mybatis-spring.verson>2.0.3</mybatis-spring.verson>
+    <commons-codec.verson>1.13</commons-codec.verson>
+    <shiro.version>1.4.2</shiro.version>
+  </properties>
+
+  <dependencies>
+    <!--  -->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>${lombok.version}</version>
+    </dependency>
+
+    <!-- jdbc驱动 -->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>${mysql.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>druid</artifactId>
+      <version>${druid.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>${servlet.version}</version>
+    </dependency>
+
+    <!--标签库-->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
+      <version>${jstl.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jackson.verson}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>${log4j2.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context-support</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+
+    <!-- spring增强 -->
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjweaver</artifactId>
+      <version>${aspectj.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis</artifactId>
+      <version>${mybatis.verson}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis-spring</artifactId>
+      <version>${mybatis-spring.verson}</version>
+    </dependency>
+
+    <!-- 包含一些通用的编码解码算法. 如：MD5、SHA1、Base64等 -->
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+      <version>${commons-codec.verson}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-fileupload</groupId>
+      <artifactId>commons-fileupload</artifactId>
+      <version>1.4</version>
+    </dependency>
+
+    <dependency>
+      <groupId>tk.mybatis</groupId>
+      <artifactId>mapper</artifactId>
+      <version>4.1.5</version>
+    </dependency>
+
+    <!--分页助手依赖-->
+    <dependency>
+      <groupId>com.github.pagehelper</groupId>
+      <artifactId>pagehelper</artifactId>
+      <version>5.1.11</version>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <finalName>U-english</finalName>
+    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+      <plugins>
+        <plugin>
+          <groupId>org.eclipse.jetty</groupId>
+          <artifactId>jetty-maven-plugin</artifactId>
+          <version>${jetty.version}</version>
+          <configuration>
+            <!-- reload 的可选值 ：[ automatic | manual ] -->
+            <reload>manual</reload>
+            <httpConnector>
+              <port>8080</port>
+            </httpConnector>
+
+            <webApp>
+              <!-- 设置了虚拟路径，启动时要输入：http://localhost:8080/ue/ -->
+              <contextPath>/ue</contextPath>
+              <!-- jetty 默认开启了 useFileMappedBuffer -->
+              <!-- 在 jetty 运行期间，页面所使用的静态文件（如 css,html,jsp 等文件）不允许修改 -->
+              <!-- 允许修改静态资源 -->
+              <defaultsDescriptor>src/main/resources/webdefault.xml</defaultsDescriptor>
+            </webApp>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+</project>

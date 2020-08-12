@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ue.dao.WordBookMapper">
+    <select id="selectLearnWordBooks" resultType="com.ue.pojo.WordBook">
+        select w.* from wordbook w inner join learnbook l on w.id = l.book_id where l.user_id=#{userId} and l.islearn=#{islearn} order by create_time desc;
+    </select>
+
+    <select id="selectNotLearnWordBooks" resultType="com.ue.pojo.WordBook">
+        select w.* from wordbook w where id not in (select book_id from learnbook where user_id=#{userId});
+    </select>
+</mapper>
